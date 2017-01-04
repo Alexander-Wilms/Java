@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 public class Analysis {
@@ -87,6 +89,28 @@ public class Analysis {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+		HashMap<String, Integer> distribution = new HashMap<String, Integer>();
+		
+		for (Student value : allstudents.values()) {
+		    List<Course> studentsCourses = value.getCourses();
+		    
+		    
+		    Iterator<Course> studentsCoursesItr = studentsCourses.iterator();
+		    
+		    while(studentsCoursesItr.hasNext()) {
+		    	Course thiscourse = (Course) studentsCoursesItr.next();
+		    	if (distribution.get(thiscourse.getName()) == null) {
+		    		distribution.put(thiscourse.getName(), 1);
+		    	} else {
+		    		int tmp = distribution.get(thiscourse.getName());
+		    		distribution.put(thiscourse.getName(), tmp+1);
+		    	}
+		    }
+		    
+		}
+		
+		System.out.println(distribution);
 
 	}
 
