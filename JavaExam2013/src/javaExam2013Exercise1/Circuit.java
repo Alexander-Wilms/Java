@@ -1,4 +1,4 @@
-package javaExam2013;
+package javaExam2013Exercise1;
 
 import java.io.Writer;
 import java.util.HashMap;
