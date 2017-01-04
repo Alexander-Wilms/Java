@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
 public class Analysis {
 
 	public static void main(String[] args) {
@@ -95,7 +97,6 @@ public class Analysis {
 		for (Student value : allstudents.values()) {
 		    List<Course> studentsCourses = value.getCourses();
 		    
-		    
 		    Iterator<Course> studentsCoursesItr = studentsCourses.iterator();
 		    
 		    while(studentsCoursesItr.hasNext()) {
@@ -111,6 +112,16 @@ public class Analysis {
 		}
 		
 		System.out.println(distribution);
+		
+		JFrame myFrame = new JFrame();
+		
+		PieChart myPieChart = new PieChart(distribution);
+		
+		myFrame.add(myPieChart);
+		
+		myFrame.pack();
+		
+		myFrame.setVisible(true);
 
 	}
 
