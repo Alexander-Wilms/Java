@@ -1,11 +1,8 @@
 package javExam2012Exercise1;
 
-import java.io.IOException;
 import java.io.Writer;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 
 
@@ -36,6 +33,5 @@ public class Playlist {
 		while(iter.hasNext()) {
 			iter.next().write(writer);
 		}
-		
 	}
 }
