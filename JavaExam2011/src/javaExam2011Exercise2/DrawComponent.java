@@ -45,6 +45,7 @@ public class DrawComponent extends Component {
 				myPoint.setLocation(x, y);
 				pointList.add(myPoint);
 			}
+			myScanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
