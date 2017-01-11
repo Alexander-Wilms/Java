@@ -58,6 +58,45 @@ public class Main {
 		System.out.println("Ausgabe der sortierten Datenbank:");
 		
 		myDatabase2.print();
+		
+		Database myDatabase3 = new Database(10);
+		Student myStudent4 = new Student("Jackson", "Catherine", 666, 3);
+		myStudent4.addCourse("Physik", 82823, "Prescott");
+		myStudent4.addCourse("Elektronik", 4635, "Lecter");
+		myStudent4.addCourse("Biologie", 49329, "Harris");
+		myDatabase3.addStudent(myStudent4);
+		
+		Student myStudent5 = new Student("Humbert", "Brady", 42, 3);
+		myStudent5.addCourse("Systemtheorie", 325415, "Kennedy");
+		myStudent5.addCourse("Regelungstechnik", 92119, "Winthrop");
+		myStudent5.addCourse("Echtzeitprogrammierung", 28572, "Chesley");
+		myDatabase3.addStudent(myStudent5);
+		
+		Student myStudent6 = new Student("Irwin", "Glenda", 37, 3);
+		myStudent6.addCourse("Echtzeitprogrammierung", 28572, "Chesley");
+		myStudent6.addCourse("Systemtheorie", 325415, "Kennedy");
+		myStudent6.addCourse("Elektronik", 4635, "Lecter");
+		myDatabase3.addStudent(myStudent6);
+		
+		Student myStudent7 = new Student("Dylan", "Wendy", 4711, 3);
+		myStudent7.addCourse("Physik", 82823, "Prescott");
+		myStudent7.addCourse("Elektronik", 4635, "Lecter");
+		myStudent7.addCourse("Biologie", 49329, "Harris");
+		myDatabase3.addStudent(myStudent7);
+		
+		Student myStudent8 = new Student("Owen", "Chermaine", 815, 3);
+		myStudent8.addCourse("Regelungstechnik", 92119, "Winthrop");
+		myStudent8.addCourse("Echtzeitprogrammierung", 28572, "Chesley");
+		myStudent8.addCourse("Biologie", 49329, "Harris");
+		myDatabase3.addStudent(myStudent8);
+		
+		myDatabase3.print();
+		
+		myDatabase3.sort();
+		
+		System.out.println("Ausgabe der sortierten Datenbank:");
+		
+		myDatabase3.print();
 	}
 
 }
