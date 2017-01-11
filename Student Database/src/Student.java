@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Student {
+public class Student implements Comparable<Object> {
 	private String name;
 	private String firstName;
 	private int matrikel;
@@ -108,7 +108,29 @@ public class Student {
 			@Override 
 			public int compare(Student student1, Student student2) {
 				// http://stackoverflow.com/questions/25015400/sort-set-in-java-using-comparator
-				return Integer.compare(student1.getMatrikel(), student2.getMatrikel());
+				return student1.compareTo(student2);
+			}
+		};
+		return comp;
+	}
+	
+	public static Comparator<Student> getNameComparator() {
+		Comparator<Student> comp = new Comparator<Student> () {
+			@Override 
+			public int compare(Student student1, Student student2) {
+				// http://stackoverflow.com/questions/25015400/sort-set-in-java-using-comparator
+				return student1.name.compareTo(student2.name);
+			}
+		};
+		return comp;
+	}
+	
+	public static Comparator<Student> getMatrikelComparator() {
+		Comparator<Student> comp = new Comparator<Student> () {
+			@Override 
+			public int compare(Student student1, Student student2) {
+				// http://stackoverflow.com/questions/25015400/sort-set-in-java-using-comparator
+				return Integer.compare(student1.matrikel, student2.matrikel);
 			}
 		};
 		return comp;
@@ -135,6 +157,24 @@ public class Student {
 			return false;
 		return true;
 	}
-	
-	
+
+	@Override
+	public int compareTo(Object arg0) {
+		Student student = (Student) arg0;
+		if(this.name.equals(student.name)) {
+			if(this.firstName.equals(student.firstName)) {
+				if(this.matrikel == student.matrikel)
+					return 0;
+				else if(this.matrikel < student.matrikel)
+					return -1;
+				else if(this.matrikel > student.matrikel)
+					return 1;
+			} else {
+				return this.firstName.compareTo(student.firstName);
+			}
+		} else {
+			return this.name.compareTo(student.firstName);
+		}
+		return 42;
+	}	
 }

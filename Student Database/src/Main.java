@@ -36,11 +36,11 @@ public class Main {
 		
 		myDatabase.print();
 		
-		myDatabase.sort();
+		// myDatabase.sort();
 		
 		System.out.println("Ausgabe der sortierten Datenbank:");
 		
-		myDatabase.print();
+		myDatabase.printByName();
 		
 		Database myDatabase2 = new Database(10);
 		myDatabase2.addStudent(new Student("Mustermann", "Max", 100123, 5));
@@ -53,11 +53,11 @@ public class Main {
 		
 		myDatabase2.print();
 		
-		myDatabase2.sort();
+		// myDatabase2.sort();
 		
 		System.out.println("Ausgabe der sortierten Datenbank:");
 		
-		myDatabase2.print();
+		myDatabase2.printByName();
 		
 		Database myDatabase3 = new Database(10);
 		Student myStudent4 = new Student("Jackson", "Catherine", 666, 3);
@@ -92,11 +92,16 @@ public class Main {
 		
 		myDatabase3.print();
 		
-		myDatabase3.sort();
+		//myDatabase3.sort();
 		
-		System.out.println("Ausgabe der sortierten Datenbank:");
+		System.out.println("Ausgabe der nach Namen sortierten Datenbank:");
 		
-		myDatabase3.print();
+		myDatabase3.printByName();
+		
+		System.out.println("Ausgabe der nach Matrikelnummern sortierten Datenbank:");
+		
+		myDatabase3.printByMatrikel();
+		
 	}
 
 }
