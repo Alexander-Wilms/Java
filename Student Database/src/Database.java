@@ -26,7 +26,7 @@ public class Database {
 		if(Students.size()+1 > maxStudents) {
 			return false;
 		} else {
-			Students.add(student);
+			Students.add(new Student(student));
 			numberStudents++;
 			return true;
 		}
