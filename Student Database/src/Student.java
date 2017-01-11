@@ -34,7 +34,7 @@ public class Student {
 	}
 	
 	public String toString() {
-		return "name: " + getName() + ", firstName: " + getFirstName() + ", matrikel: " + getMatrikel() + ", Courses: " + getCourses() + ", NoOfCourses: " + getNoOfCourses() + ", maxCourses: " + getMaxCourses() + ", averageMark: " + calculateAverageMark();
+		return "name: " + getName() + ", firstName: " + getFirstName() + ", matrikel: " + getMatrikel() + ", Courses: " + getCourses() + ", NoOfCourses: " + getNoOfCourses() + ", maxCourses: " + getMaxCourses() + ", averageMark: " + calculateAverageMark() + "\n";
 	}
 
 	public String getName() {
@@ -106,9 +106,12 @@ public class Student {
 		Comparator<Student> comp = new Comparator<Student> () {
 			@Override 
 			public int compare(Student student1, Student student2) {
-				return student1.getMatrikel() < student2.getMatrikel()? 1 : 0;
+				// http://stackoverflow.com/questions/25015400/sort-set-in-java-using-comparator
+				return Integer.compare(student1.getMatrikel(), student2.getMatrikel());
 			}
 		};
 		return comp;
 	}
+	
+	
 }

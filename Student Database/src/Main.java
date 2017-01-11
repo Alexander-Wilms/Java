@@ -20,14 +20,44 @@ public class Main {
 		
 		Student myStudent2 = new Student("Garvey" , "Timothy" , 23864+1, 5);
 		
-		Comparator myComparator = myStudent1.getComparator();
-		
+		Comparator<Student> myComparator = Student.getComparator();
 		
 		System.out.println("myStudent1 < myStudent2: " + myComparator.compare(myStudent1, myStudent2));
 		System.out.println("myStudent1 == myStudent2: " + myComparator.compare(myStudent1, myStudent1));
 		System.out.println("myStudent2 > myStudent2: " + myComparator.compare(myStudent2, myStudent1));
 		
-
+		Database myDatabase = new Database(4);
+		myDatabase.addStudent(myStudent1);
+		myDatabase.addStudent(myStudent2);
+		
+		Student myStudent3 = new Student("Franklin" , "Emma" , 23864-1, 5);
+		myStudent3.addCourse("Mathematik", 42, "Frenzen");
+		myDatabase.addStudent(myStudent3);
+		
+		myDatabase.print();
+		
+		myDatabase.sort();
+		
+		System.out.println("Ausgabe der sortierten Datenbank:");
+		
+		myDatabase.print();
+		
+		Database myDatabase2 = new Database(10);
+		myDatabase2.addStudent(new Student("Mustermann", "Max", 100123, 5));
+		myDatabase2.addStudent(new Student("Froehlich", "Fridolin", 100113, 5));
+		myDatabase2.addStudent(new Student("Doesig","Dietmar",100144, 5));
+		myDatabase2.addStudent(new Student("Fleiss","Felix",100763, 5));
+		myDatabase2.addStudent(new Student("Hungrig","Henry",100100, 5));
+		myDatabase2.addStudent(new Student("Wald","Waldemar",100, 5));
+		myDatabase2.addStudent(new Student("Musterfrau","Maria",100122, 5));
+		
+		myDatabase2.print();
+		
+		myDatabase2.sort();
+		
+		System.out.println("Ausgabe der sortierten Datenbank:");
+		
+		myDatabase2.print();
 	}
 
 }
