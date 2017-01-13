@@ -46,10 +46,19 @@ public class ConwaysGameOfLife {
 		
 		rand.setSeed(System.currentTimeMillis());
 
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++) {
-				if(rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean())
+		boolean lastOneWasAlive = false;
+		
+		for(int i = (int ) (0.25*size); i < size-0.25*size; i++) {
+			for(int j = (int) (0.25*size); j < size-0.25*size; j++) {
+				if(rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean()) {
 					data[i][j] = 1;
+					lastOneWasAlive = true;
+				} else if(lastOneWasAlive && rand.nextBoolean() && rand.nextBoolean()) {
+					data[i][j] = 1;
+					lastOneWasAlive = true;
+				} else {
+					lastOneWasAlive = false;
+				}	
 			}
 		}
 
@@ -63,7 +72,7 @@ public class ConwaysGameOfLife {
 			comp.repaint();
 
 			try {
-				Thread.sleep(10);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
