@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 
 public class Display extends Component {
 	
+	private static final long serialVersionUID = 1L;
+
 	private int[][] data;
 	
 	Graphics2D g2;
