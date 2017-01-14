@@ -7,7 +7,7 @@ public class Display extends Component {
 	
 	private static final long serialVersionUID = 1L;
 
-	private int[][] data;
+	private boolean[][] data;
 	
 	Graphics2D g2;
 	
@@ -19,11 +19,11 @@ public class Display extends Component {
 		this.size = size;
 		Dimension dim = new Dimension(size,size);
 		super.setPreferredSize(dim);
-		data = new int[size][size];
+		data = new boolean[size][size];
 	}
 
-	public void setdata(int[][] input) {
-		data = input;
+	public void setdata(boolean[][] data2) {
+		data = data2;
 	}
 	
 	@Override
@@ -32,7 +32,7 @@ public class Display extends Component {
 		
 		for(int i = 0; i <size; i++) {
 			for(int j = 0; j < size; j++) {
-				if(data[i][j] == 1) {
+				if(data[i][j] == true) {
 					g2.fillRect(i,j,1,1);
 				}
 			}

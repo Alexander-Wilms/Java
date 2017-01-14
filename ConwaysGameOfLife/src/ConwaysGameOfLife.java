@@ -8,7 +8,7 @@ public class ConwaysGameOfLife {
 
 	static final int size = 500;
 	
-	static int[][] data, dataOfNextStep;
+	static boolean[][] data, dataOfNextStep;
 
 	static Component comp;
 	
@@ -43,13 +43,13 @@ public class ConwaysGameOfLife {
 	}
 
 	private static void run() {
-		data = new int[size][size];
-		dataOfNextStep = new int[size][size];
+		data = new boolean[size][size];
+		dataOfNextStep = new boolean[size][size];
 
 		for(int i = 0; i <size; i++) {
 			for(int j = 0; j < size; j++) {
-				data[i][j] = 0;
-				dataOfNextStep[i][j] = 0;
+				data[i][j] = false;
+				dataOfNextStep[i][j] = false;
 			}
 		}
 
@@ -69,7 +69,7 @@ public class ConwaysGameOfLife {
 			
 			for(int i = 0; i <size; i++) {
 				for(int j = 0; j < size; j++) {
-					dataOfNextStep[i][j] = 0;
+					dataOfNextStep[i][j] = false;
 				}
 			}
 
@@ -110,10 +110,10 @@ public class ConwaysGameOfLife {
 			for(int j = min(c,d); j < max(c,d); j++) {
 				
 				if(rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean()) {
-					data[i][j] = 1;
+					data[i][j] = true;
 					lastOneWasAlive = true;
 				} else if(lastOneWasAlive && rand.nextBoolean()) {
-					data[i][j] = 1;
+					data[i][j] = true;
 					lastOneWasAlive = true;
 				} else {
 					lastOneWasAlive = false;
@@ -130,7 +130,7 @@ public class ConwaysGameOfLife {
 		return a > b? a : b;
 	}
 	
-	private static void initPattern(int[][] pattern, int width, int height) {
+	private static void initPattern(boolean[][] pattern, int width, int height) {
 		int x = size/2-width/2, y = size/2-height/2;
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
@@ -161,7 +161,7 @@ public class ConwaysGameOfLife {
 				for(int k = 0; k < 8; k++) {
 					if(0 <= i+neighbors[k][0] && i+neighbors[k][0] < size && 0 <= j+neighbors[k][1] && j+neighbors[k][1] < size) {
 						//System.out.println("Testing " + (i+neighbors[k][1]) + ", " + (j+neighbors[k][0]));
-						if(data[i+neighbors[k][0]][j+neighbors[k][1]] == 1) {
+						if(data[i+neighbors[k][0]][j+neighbors[k][1]] == true) {
 							//System.out.println("Someone lives here");
 							liveNeighbors++;
 						}
@@ -170,18 +170,18 @@ public class ConwaysGameOfLife {
 				
 				//System.out.println(i + " " + j +": " + liveNeighbors + "alive neighbors");
 				
-				if(data[i][j] == 1) {
+				if(data[i][j] == true) {
 					// live cell
 					if(liveNeighbors < 2)
-						dataOfNextStep[i][j] = 0;
+						dataOfNextStep[i][j] = false;
 					else if(liveNeighbors == 2 || liveNeighbors == 3)
-						dataOfNextStep[i][j] = 1;
+						dataOfNextStep[i][j] = true;
 					else if(liveNeighbors > 3)
-						dataOfNextStep[i][j] = 0;
-				} else if(data[i][j] == 0){
+						dataOfNextStep[i][j] = false;
+				} else if(data[i][j] == false){
 					// dead cell
 					if(liveNeighbors == 3)
-						dataOfNextStep[i][j] = 1;
+						dataOfNextStep[i][j] = true;
 				}
 			}
 		}
