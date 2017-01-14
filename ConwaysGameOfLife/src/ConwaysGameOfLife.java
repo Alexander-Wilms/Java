@@ -1,5 +1,6 @@
 import java.awt.Component;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JFrame;
 
@@ -52,17 +53,13 @@ public class ConwaysGameOfLife {
 			}
 		}
 
-		for(int i = 0; i < 99; i++)
+		for(int i = 0; i < 5; i++)
 			initRand();
 		
 		//initPattern(glider,3,3);
 		
 		while(true) {
 			System.out.println();
-			
-			//printData();
-			
-			//System.out.println();
 			
 			computeNextStep();
 			
@@ -92,16 +89,30 @@ public class ConwaysGameOfLife {
 	private static void initRand() {
 		Random rand = new Random();	
 
-		rand.setSeed(System.currentTimeMillis());
 
 		boolean lastOneWasAlive = false;
+		
+		rand.setSeed(System.currentTimeMillis());
+		
+		// http://stackoverflow.com/questions/363681/generating-random-integers-in-a-specific-range
+		int a = ThreadLocalRandom.current().nextInt(0, size);
+		int b = ThreadLocalRandom.current().nextInt(0, size);
+		int c = ThreadLocalRandom.current().nextInt(0, size);
+		int d = ThreadLocalRandom.current().nextInt(0, size);
 
-		for(int i = (int ) (0.25*size); i < size-0.25*size; i++) {
-			for(int j = (int) (0.25*size); j < size-0.25*size; j++) {
-				if(rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean()) {
+		System.out.println(min(a,b));
+		System.out.println(max(a,b));
+		System.out.println(min(c,d));
+		System.out.println(max(c,d));
+		
+		for(int i = min(a,b); i < max(a,b); i++) {
+			
+			for(int j = min(c,d); j < max(c,d); j++) {
+				
+				if(rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean()) {
 					data[i][j] = 1;
 					lastOneWasAlive = true;
-				} else if(lastOneWasAlive && rand.nextBoolean() && rand.nextBoolean()) {
+				} else if(lastOneWasAlive && rand.nextBoolean()) {
 					data[i][j] = 1;
 					lastOneWasAlive = true;
 				} else {
@@ -109,6 +120,14 @@ public class ConwaysGameOfLife {
 				}	
 			}
 		}
+	}
+	
+	private static int min(int a, int b) {
+		return a < b? a : b;
+	}
+	
+	private static int max(int a, int b) {
+		return a > b? a : b;
 	}
 	
 	private static void initPattern(int[][] pattern, int width, int height) {
