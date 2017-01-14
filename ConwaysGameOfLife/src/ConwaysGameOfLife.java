@@ -3,6 +3,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 public class ConwaysGameOfLife {
 
@@ -22,18 +23,32 @@ public class ConwaysGameOfLife {
 			{-1,1},		// links oben
 			{-1,0}};	// links
 	
-	static int[][] glider = {
-			{0,0,1},
-			{1,0,1},
-			{0,1,1}};
+	static boolean[][] glider = {
+			{false,false,true},
+			{true,false,true},
+			{false,true,true}};
 	
-	static int[][] blinker = {
-			{0,1,0},
-			{0,1,0},
-			{0,1,0}};
+	static boolean[][] blinker = {
+			{false,true,false},
+			{false,true,false},
+			{false,true,false}};
 
+	static Random rand;
+	
+	static int a, b, c, d;
+	
 	public static void main(String[] args) {
+		rand = new Random();
+		rand.setSeed(System.currentTimeMillis());
+
+		// http://stackoverflow.com/questions/363681/generating-random-integers-in-a-specific-range	
+		a = ThreadLocalRandom.current().nextInt(0, size);
+		b = ThreadLocalRandom.current().nextInt(0, size);
+		c = ThreadLocalRandom.current().nextInt(0, size);
+		d = ThreadLocalRandom.current().nextInt(0, size);
+		
 		JFrame jf = new JFrame();
+		jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		comp = new Display(size);
 		jf.add(comp );
 		jf.pack();
@@ -53,14 +68,12 @@ public class ConwaysGameOfLife {
 			}
 		}
 
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < 1000; i++)
 			initRand();
 		
 		//initPattern(glider,3,3);
 		
-		while(true) {
-			System.out.println();
-			
+		while(true) {			
 			computeNextStep();
 			
 			// http://stackoverflow.com/questions/1686425/copy-a-2d-array-in-java
@@ -76,30 +89,10 @@ public class ConwaysGameOfLife {
 			((Display) comp).setdata(data);
 
 			comp.repaint();
-
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 
 	private static void initRand() {
-		Random rand = new Random();	
-
-
-		boolean lastOneWasAlive = false;
-		
-		rand.setSeed(System.currentTimeMillis());
-		
-		// http://stackoverflow.com/questions/363681/generating-random-integers-in-a-specific-range
-		int a = ThreadLocalRandom.current().nextInt(0, size);
-		int b = ThreadLocalRandom.current().nextInt(0, size);
-		int c = ThreadLocalRandom.current().nextInt(0, size);
-		int d = ThreadLocalRandom.current().nextInt(0, size);
-
 		System.out.println(min(a,b));
 		System.out.println(max(a,b));
 		System.out.println(min(c,d));
@@ -109,15 +102,9 @@ public class ConwaysGameOfLife {
 			
 			for(int j = min(c,d); j < max(c,d); j++) {
 				
-				if(rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean()) {
+				if(rand.nextBoolean()) {
 					data[i][j] = true;
-					lastOneWasAlive = true;
-				} else if(lastOneWasAlive && rand.nextBoolean()) {
-					data[i][j] = true;
-					lastOneWasAlive = true;
-				} else {
-					lastOneWasAlive = false;
-				}	
+				}
 			}
 		}
 	}
@@ -130,11 +117,11 @@ public class ConwaysGameOfLife {
 		return a > b? a : b;
 	}
 	
-	private static void initPattern(boolean[][] pattern, int width, int height) {
+	private static void initPattern(boolean[][] glider2, int width, int height) {
 		int x = size/2-width/2, y = size/2-height/2;
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
-				data[x+i][y+j] = pattern[i][j];
+				data[x+i][y+j] = glider2[i][j];
 				System.out.println(data[x+i][y+j]);
 			}
 		}
