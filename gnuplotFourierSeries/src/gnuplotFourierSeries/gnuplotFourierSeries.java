@@ -1,5 +1,7 @@
 package gnuplotFourierSeries;
 
+import java.util.Scanner;
+
 import com.panayotis.gnuplot.JavaPlot;
 
 public class gnuplotFourierSeries {
@@ -9,19 +11,35 @@ public class gnuplotFourierSeries {
 
 		myJavaPlot.set("samples", "10000");
 
-		myJavaPlot.set("xrange", "[-1:1]");
+		myJavaPlot.set("xrange", "[-10:10]");
 
 		myJavaPlot.set("key", "off");
 
 		String plotCommand = "0";
+		
+		plotCommand += "1/2 - 1/pi * (";
 
-		int f = 1;
+		int omega = 1;
 
-		int iterations = 100;
+		int iterations;
+		
+		Scanner myScanner = new Scanner(System.in);
+		
+		System.out.println("How many iteration?");
+		
+		iterations = myScanner.nextInt();
+		
+		myScanner.close();
 
 		for(int k = 1; k<iterations+1; k++) {
-			plotCommand += "+4/pi*(sin(2*pi*(2*" + k + "-1)*" + f + "*x))/(2*" + k + "-1)";
+			//plotCommand += "+4/pi*(sin((2*" + k + "-1)*" + omega + "*x))/(2*" + k + "-1)";
+			//plotCommand += "+2/pi*((-1)**(" + k + "+1))/(" + k + ")*sin(" + k + "*x)";
+			plotCommand += "+(-1)**" + k + "*sin(" + omega + "*" + k +"*x)/" + k;
 		}
+		
+		plotCommand += ")";
+		
+		System.out.println(plotCommand);
 		
 		myJavaPlot.addPlot(plotCommand);
 		
