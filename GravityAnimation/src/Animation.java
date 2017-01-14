@@ -1,5 +1,4 @@
 import java.awt.Component;
-
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -21,6 +20,7 @@ public class Animation {
 	}
 
 	private static void run() {
+				    
 		double acceleration = 0.1;
 
 		data = new boolean[100][100];
@@ -51,20 +51,21 @@ public class Animation {
 				location = (int) (-0.5*acceleration*time*time+velocity*time);
 			}
 
-
-
 			if(location < 0) {
+				java.awt.Toolkit.getDefaultToolkit().beep();		    
 				location = 0;
 				down = false;
 				time=0;
 			}
-
+			
 			if(location > 99) {
 				location = 99;
 				down = true;
 			}
 
-			System.out.println(location);
+			System.out.println("location: " + location);
+			System.out.println("velocity: " + velocity);
+			System.out.println();
 			
 			for(int i = 0; i <100; i++) {
 				for(int j = 0; j < 100; j++) {
@@ -89,6 +90,8 @@ public class Animation {
 
 			time++;
 
+			if(velocity < 0.5 && location < 0.5)
+				break;
 		}
 	}
 }

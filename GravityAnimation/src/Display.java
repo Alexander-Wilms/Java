@@ -14,6 +14,7 @@ public class Display extends Component {
 	Graphics g;
 	
 	public Display() {
+		data = new boolean[100][100];
 		Dimension dim = new Dimension(100,100);
 		super.setPreferredSize(dim);
 	}
