@@ -12,14 +12,24 @@ public class ConwaysGameOfLife {
 	static Component comp;
 	
 	static int[][] neighbors = {
-			{-1, -1},
-			{0,-1},
-			{1,-1},
-			{1,0},
-			{1,1},
-			{0,1},
-			{-1,1},
-			{-1,0}};
+			{-1, -1}, 	// links unten
+			{0,-1},		// unten
+			{1,-1},		// rechts unten
+			{1,0},		// rechts
+			{1,1},		// rechts oben
+			{0,1},		// oben
+			{-1,1},		// links oben
+			{-1,0}};	// links
+	
+	static int[][] glider = {
+			{0,0,1},
+			{1,0,1},
+			{0,1,1}};
+	
+	static int[][] blinker = {
+			{0,1,0},
+			{0,1,0},
+			{0,1,0}};
 
 	public static void main(String[] args) {
 		JFrame jf = new JFrame();
@@ -38,15 +48,54 @@ public class ConwaysGameOfLife {
 		for(int i = 0; i <size; i++) {
 			for(int j = 0; j < size; j++) {
 				data[i][j] = 0;
+				dataOfNextStep[i][j] = 0;
 			}
 		}
 
-		Random rand = new Random();	
+		for(int i = 0; i < 99; i++)
+			initRand();
 		
+		//initPattern(glider,3,3);
+		
+		while(true) {
+			System.out.println();
+			
+			//printData();
+			
+			//System.out.println();
+			
+			computeNextStep();
+			
+			// http://stackoverflow.com/questions/1686425/copy-a-2d-array-in-java
+			for(int i = 0; i < size; i++)
+			    data[i] = dataOfNextStep[i].clone();
+			
+			for(int i = 0; i <size; i++) {
+				for(int j = 0; j < size; j++) {
+					dataOfNextStep[i][j] = 0;
+				}
+			}
+
+			((Display) comp).setdata(data);
+
+			comp.repaint();
+
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private static void initRand() {
+		Random rand = new Random();	
+
 		rand.setSeed(System.currentTimeMillis());
 
 		boolean lastOneWasAlive = false;
-		
+
 		for(int i = (int ) (0.25*size); i < size-0.25*size; i++) {
 			for(int j = (int) (0.25*size); j < size-0.25*size; j++) {
 				if(rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean()) {
@@ -60,38 +109,47 @@ public class ConwaysGameOfLife {
 				}	
 			}
 		}
-
-		while(true) {
-			computeNextStep();
-			
-			data = dataOfNextStep;
-
-			((Display) comp).setdata(data);
-
-			comp.repaint();
-
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	}
+	
+	private static void initPattern(int[][] pattern, int width, int height) {
+		int x = size/2-width/2, y = size/2-height/2;
+		for(int i = 0; i < width; i++) {
+			for(int j = 0; j < height; j++) {
+				data[x+i][y+j] = pattern[i][j];
+				System.out.println(data[x+i][y+j]);
 			}
-
+		}
+	}
+	
+	private static void printData() {
+		for(int i = 0; i <size; i++) {
+			for(int j = 0; j <size; j++) {
+				System.out.print(data[i][j]);
+			}
+			System.out.println();
 		}
 	}
 	
 	private static void computeNextStep() {
 		int liveNeighbors = 0;
 		
-		for(int i = 0; i <size; i++) {
+		for(int i = 0; i < size; i++) {
 			for(int j = 0; j < size; j++) {
 				liveNeighbors = 0;
 				
+				//printData();
+				
 				for(int k = 0; k < 8; k++) {
-					if(i+neighbors[k][0] >= 0 && i+neighbors[k][0] < size && j+neighbors[k][1] >= 0 && j+neighbors[k][1] < size)
-						if(data[i+neighbors[k][0]][j+neighbors[k][1]] == 1)
+					if(0 <= i+neighbors[k][0] && i+neighbors[k][0] < size && 0 <= j+neighbors[k][1] && j+neighbors[k][1] < size) {
+						//System.out.println("Testing " + (i+neighbors[k][1]) + ", " + (j+neighbors[k][0]));
+						if(data[i+neighbors[k][0]][j+neighbors[k][1]] == 1) {
+							//System.out.println("Someone lives here");
 							liveNeighbors++;
+						}
+					}
 				}
+				
+				//System.out.println(i + " " + j +": " + liveNeighbors + "alive neighbors");
 				
 				if(data[i][j] == 1) {
 					// live cell
@@ -101,7 +159,7 @@ public class ConwaysGameOfLife {
 						dataOfNextStep[i][j] = 1;
 					else if(liveNeighbors > 3)
 						dataOfNextStep[i][j] = 0;
-				} else {
+				} else if(data[i][j] == 0){
 					// dead cell
 					if(liveNeighbors == 3)
 						dataOfNextStep[i][j] = 1;

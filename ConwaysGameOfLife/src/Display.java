@@ -33,7 +33,7 @@ public class Display extends Component {
 		for(int i = 0; i <size; i++) {
 			for(int j = 0; j < size; j++) {
 				if(data[i][j] == 1) {
-					g2.drawRect(i,j,1,1);
+					g2.fillRect(i,j,1,1);
 				}
 			}
 		}
