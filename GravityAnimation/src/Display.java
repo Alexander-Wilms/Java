@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 
 public class Display extends Component {
 	
+	private static final long serialVersionUID = 1L;
+
 	private boolean[][] data;
 	
 	Graphics2D g2;
@@ -27,7 +29,7 @@ public class Display extends Component {
 		for(int i = 0; i <100; i++) {
 			for(int j = 0; j < 100; j++) {
 				if(data[i][j] == true) {
-					g2.fillRect(i,99-j,1,1);
+					g2.fillRect(i,99-j,2,2);
 				}
 			}
 		}
