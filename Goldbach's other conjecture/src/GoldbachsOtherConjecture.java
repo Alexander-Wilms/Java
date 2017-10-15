@@ -1,4 +1,5 @@
 // https://projecteuler.net/problem=46
+
 public class GoldbachsOtherConjecture {
     static boolean GoldbachSatisfied(long n) {
         int sum = 0;

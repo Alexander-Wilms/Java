@@ -10,7 +10,5 @@ public class SquareBoard {
 			}
 			System.out.println();
 		}
-
 	}
-
 }

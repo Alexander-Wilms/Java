@@ -25,7 +25,7 @@ public class ComputeEulersNumber {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(brothersFormula(20));
+		System.out.println(brothersFormula(30));
 
 	}
 }

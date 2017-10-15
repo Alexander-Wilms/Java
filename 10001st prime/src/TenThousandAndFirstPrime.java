@@ -1,4 +1,3 @@
-
 public class TenThousandAndFirstPrime {
 
 	public static void main(String[] args) {
@@ -15,10 +14,11 @@ public class TenThousandAndFirstPrime {
 					sum++;
 			}
 			
+			// primes are only divisible by 1 and themselves
 			if(sum == 2) {
 				
 				NoOfPrimes++;
-				System.out.println("Primzahl " + NoOfPrimes + ": " + numberToBeTested);
+				//System.out.println("Primzahl " + NoOfPrimes + ": " + numberToBeTested);
 			}
 			
 		}
